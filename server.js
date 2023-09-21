@@ -39,6 +39,11 @@ app.use('/', async (req, res) => {
     }
 });
 
+app.get('/ping', (req, res) => {
+	res.send(Date.now().toString());
+});
+
+
 app.listen(process.env.PORT || PORT, () => {
     console.log(`Proxy server is running on http://localhost:${PORT}`);
 });

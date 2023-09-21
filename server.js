@@ -37,7 +37,6 @@ app.use('/', async (req, res) => {
         console.log('Body:', req.body);
         console.log('Headers:', req.headers);
         console.log('Incoming request path:', req.path);
-        console.log('Forwarding to:', forwardUrl);
 
         // Create a new headers object from the original request headers.
         let forwardedHeaders = { ...req.headers };
@@ -53,7 +52,7 @@ app.use('/', async (req, res) => {
         const response = await axios({
             method: req.method,
             url: forwardUrl,
-            data: req.body,
+            data: JSON.stringify(req.body),
             headers: forwardedHeaders,
             timeout: 5000  // Set a timeout of 5 seconds
         });

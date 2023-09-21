@@ -38,7 +38,7 @@ app.use('/', async (req, res) => {
             url: forwardUrl,
             data: req.body,
             headers: forwardedHeaders,
-            timeout: 5000  // Set a timeout of 5 seconds
+            timeout: 30000  // Set a timeout of 5 seconds
         });
 
         res.status(response.status).send(response.data);

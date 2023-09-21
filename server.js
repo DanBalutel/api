@@ -29,7 +29,14 @@ app.get('/get', (req, res) => {
 app.use('/', async (req, res) => {
     try {
         const forwardUrl = targetUrl + req.path;
-        
+
+        // Logging incoming request details
+        console.log('Incoming Request:');
+        console.log('Method:', req.method);
+        console.log('Path:', req.path);
+        console.log('Body:', req.body);
+        console.log('Headers:', req.headers);
+
         // Create a new headers object from the original request headers.
         let forwardedHeaders = { ...req.headers };
 
@@ -37,13 +44,22 @@ app.use('/', async (req, res) => {
         delete forwardedHeaders.host;
         delete forwardedHeaders['accept-encoding'];  // This can sometimes cause issues with Axios
 
+        // Logging forwarding details
+        console.log('Forwarding To:', forwardUrl);
+        console.log('Forwarded Headers:', forwardedHeaders);
+
         const response = await axios({
             method: req.method,
             url: forwardUrl,
             data: req.body,
             headers: forwardedHeaders,
-            timeout: 30000  // Set a timeout of 5 seconds
+            timeout: 5000  // Set a timeout of 5 seconds
         });
+
+        // Logging response details
+        console.log('Received Response:');
+        console.log('Status:', response.status);
+        console.log('Data:', response.data);
 
         res.status(response.status).send(response.data);
     } catch (error) {
@@ -51,6 +67,7 @@ app.use('/', async (req, res) => {
         res.status(error.response ? error.response.status : 500).send(error.response ? error.response.statusText : "Internal Proxy Error");
     }
 });
+
 
 
 app.listen(process.env.PORT || PORT, () => {

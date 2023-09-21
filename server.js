@@ -53,7 +53,10 @@ app.use('/', async (req, res) => {
             method: req.method,
             url: forwardUrl,
             data: JSON.stringify(req.body),
-            headers: forwardedHeaders,
+            headers: {
+                ...forwardedHeaders,
+                'Content-Type': 'application/json'  // Explicitly set the content type
+            },
             timeout: 5000  // Set a timeout of 5 seconds
         });
 

@@ -36,6 +36,8 @@ app.use('/', async (req, res) => {
         console.log('Path:', req.path);
         console.log('Body:', req.body);
         console.log('Headers:', req.headers);
+        console.log('Incoming request path:', req.path);
+        console.log('Forwarding to:', forwardUrl);
 
         // Create a new headers object from the original request headers.
         let forwardedHeaders = { ...req.headers };

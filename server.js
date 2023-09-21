@@ -39,8 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 //     }
 // });
 
-app.get('/ping', (req, res) => {
-	res.status(200).send("PONG");
+app.get('/get', (req, res) => {
+	res.send("PONG");
 });
 
 

@@ -39,6 +39,6 @@ app.use('/', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log(`Proxy server is running on http://localhost:${PORT}`);
 });

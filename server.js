@@ -25,19 +25,29 @@ app.use((req, res, next) => {
 app.use('/', async (req, res) => {
     try {
         const forwardUrl = targetUrl + req.path;
+        
+        // Create a new headers object from the original request headers.
+        let forwardedHeaders = { ...req.headers };
+
+        // Delete headers that shouldn't be forwarded.
+        delete forwardedHeaders.host;
+        delete forwardedHeaders['accept-encoding'];  // This can sometimes cause issues with Axios
+
         const response = await axios({
             method: req.method,
             url: forwardUrl,
             data: req.body,
-            headers: req.headers
+            headers: forwardedHeaders,
+            timeout: 5000  // Set a timeout of 5 seconds
         });
 
         res.status(response.status).send(response.data);
     } catch (error) {
-        console.error('Error in the proxy:', error.response.statusText);
-        res.status(error.response.status).send(error.response.statusText);
+        console.error('Error in the proxy:', error.response ? error.response.statusText : error.message);
+        res.status(error.response ? error.response.status : 500).send(error.response ? error.response.statusText : "Internal Proxy Error");
     }
 });
+
 
 app.get('/get', (req, res) => {
 	res.send("PONG");

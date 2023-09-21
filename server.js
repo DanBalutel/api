@@ -4,7 +4,7 @@ const axios = require('axios');
 const app = express();
 const PORT = 4000;  // You can choose any other available port
 
-const targetUrl = 'http://3.67.38.226:3000/';
+const targetUrl = 'http://3.67.38.226:3000';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

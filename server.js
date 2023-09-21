@@ -40,7 +40,7 @@ app.use('/', async (req, res) => {
 });
 
 app.get('/ping', (req, res) => {
-	res.send(Date.now().toString());
+	res.status(200).send("PONG");
 });
 
 

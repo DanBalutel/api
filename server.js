@@ -57,7 +57,7 @@ app.use('/', async (req, res) => {
                 ...forwardedHeaders,
                 'Content-Type': 'application/json'  // Explicitly set the content type
             },
-            timeout: 5000  // Set a timeout of 5 seconds
+            timeout: 30000  // Set a timeout of 5 seconds
         });
 
         // Logging response details
